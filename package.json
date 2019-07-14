@@ -1,0 +1,43 @@
+{
+  "name": "stream-display",
+  "version": "0.0.1",
+  "description": "Wrapper around getDisplayMedia to capture screen as a sequence of ImageData objects",
+  "main": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "browser": "dist/index.min.js",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "npm run build:esm && npm run build:umd",
+    "build:esm": "tsc",
+    "build:umd": "rollup -c",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khovansky-al/stream-display.git"
+  },
+  "keywords": [
+    "screen",
+    "capture",
+    "mediadevices",
+    "screen",
+    "getdisplaymedia"
+  ],
+  "files": [
+    "dist/**/*",
+    "LICENSE"
+  ],
+  "author": "Alexander Khovansky <alex@khovansky.me>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/khovansky-al/stream-display/issues"
+  },
+  "homepage": "https://github.com/khovansky-al/stream-display#readme",
+  "devDependencies": {
+    "rimraf": "^2.6.3",
+    "rollup": "^1.16.7",
+    "rollup-plugin-terser": "^5.1.1",
+    "typescript": "^3.5.3"
+  }
+}
