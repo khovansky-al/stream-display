@@ -1,13 +1,16 @@
 import { terser } from "rollup-plugin-terser";
+import sourcemaps from 'rollup-plugin-sourcemaps';
 
 export default {
   input: 'dist/esm/index.js',
   output: {
-    file: './dist/index.min.js',
+    file: './dist/index.js',
     name: 'StreamDisplay',
-    format: 'iife',
+    format: 'umd',
+    sourcemap: true
   },
   plugins: [
+    sourcemaps(),
     terser(),
   ]
 }
