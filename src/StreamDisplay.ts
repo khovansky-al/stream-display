@@ -26,7 +26,7 @@ declare global {
 
 type CallbackFn = (imageData: ImageData) => any
 
-export default class Capture {
+export default class StreamDisplay {
   private video: HTMLVideoElement;
   private canvas: HTMLCanvasElement;
   private canvasContext: CanvasRenderingContext2D;
@@ -65,7 +65,6 @@ export default class Capture {
     const tracks = videoSource.getTracks();
 
     tracks.forEach(track => track.stop());
-    // this.video.srcObject = null;
   }
 
   private setupCanvas() {

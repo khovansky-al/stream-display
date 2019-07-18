@@ -2,8 +2,8 @@
   "name": "stream-display",
   "version": "0.0.3",
   "description": "Wrapper around getDisplayMedia to capture screen as a sequence of ImageData objects",
-  "main": "dist/index.js",
-  "types": "dist/esm/index.d.ts",
+  "main": "dist/stream-display.js",
+  "types": "dist/StreamDisplay.d.ts",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "npm run build:esm && npm run build:umd",
@@ -24,7 +24,7 @@
     "getdisplaymedia"
   ],
   "files": [
-    "dist/**/*.d.ts",
+    "dist/*.d.ts",
     "dist/*.js.map",
     "dist/*.js",
     "LICENSE"
@@ -38,6 +38,7 @@
   "devDependencies": {
     "rimraf": "^2.6.3",
     "rollup": "^1.16.7",
+    "rollup-plugin-copy": "^3.0.0",
     "rollup-plugin-sourcemaps": "^0.4.2",
     "rollup-plugin-terser": "^5.1.1",
     "typescript": "^3.5.3"
