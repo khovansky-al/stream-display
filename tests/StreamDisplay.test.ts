@@ -4,15 +4,15 @@ import sinon = require('sinon');
 import setupEnvironment from './setupEnvironment';
 import StreamDisplay from '../src/StreamDisplay';
 
-const { getDisplayMediaFake, clock } = setupEnvironment();
 const { DEFAULT_SCAN_INTERVAL_MS } = StreamDisplay;
+const { clock, getDisplayMediaFake } = setupEnvironment();
 
 tape('It is a function', t => {
   t.plan(1);
   t.equal(typeof StreamDisplay, 'function');
 });
 
-tape('It calls getDisplayMedia', t => {
+tape('It calls getDisplayMedia', function(t) {
   t.plan(1);
 
   const stream = new StreamDisplay(() => {});
@@ -77,4 +77,3 @@ tape(`It stops after stopCapture`, t => {
     t.equal(callback.callCount, timedInvocations + 1);
   });
 });
-

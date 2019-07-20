@@ -1,30 +1,14 @@
-const DISPLAY_MEDIA_OPTIONS: MediaStreamConstraints = {
+
+import { FixedMediaDevices, FixedMediaStreamConstraints } from  './globals'
+
+const DISPLAY_MEDIA_OPTIONS: FixedMediaStreamConstraints = {
   video: {
     cursor: 'never'
   },
   audio: false
 }
 
-declare global {
-  /*
-    MediaDevices.getDisplayMedia is currently typed incorrectly
-    https://github.com/microsoft/TypeScript/issues/31821
-  */
-  interface MediaDevices {
-    getDisplayMedia(constraints: MediaStreamConstraints): Promise<MediaStream>;
-  }
-
-  interface MediaTrackConstraints {
-    cursor: ConstrainDOMString;
-  }
-
-  interface MediaStreamConstraints {
-    video?: MediaTrackConstraints | boolean;
-    audio?: MediaTrackConstraints | boolean;
-  }
-}
-
-type CallbackFn = (imageData: ImageData) => any
+type CallbackFn = (imageData: ImageData) => void
 type Configuration = {
   scanInterval?: number;
 }
@@ -60,7 +44,7 @@ export default class StreamDisplay {
   }
 
   startCapture = async () => {
-    const devices = navigator.mediaDevices as MediaDevices;
+    const devices = navigator.mediaDevices as FixedMediaDevices;
     this.video.srcObject = await devices.getDisplayMedia(DISPLAY_MEDIA_OPTIONS);
     this.video.play();
 

@@ -50,7 +50,7 @@ new StreamDisplay(callback, options = {})
 
 - `callback: (image: ImageData) => any` - A function that takes one argument — image data from the screen capture feed
 - `options` (optional) — a configuration object, currently can have only one option:
-  - `scanInterval: number (ms)` — interval between every callback invocation. Default value — `1000 `. NB: when your tab enters background — most browsers will cap the setInterval at `1000ms` maximum. Setting this value lower will not have any effect.
+  - `scanInterval: number (ms)` — interval between every callback invocation. Default value — `1000 `. **NB**: when your tab enters background — most browsers will cap the setInterval at `1000ms` maximum. Setting this value lower will not have any effect.
 
 ### Start/stop capture
 
@@ -58,9 +58,42 @@ new StreamDisplay(callback, options = {})
 
 `stopCapture()` — ends the capture session.
 
+## Tests
+
+This library is using `tape` as a test runner. Tests themselves are also written in typescript and launched using `ts-node`.
+
+To run the tests simpy launch
+
+```bash
+npm run test
+```
+
+ If you want to debug the tests, you can use the following configuration (VSCode):
+
+```json
+{
+  "type": "node",
+  "request": "launch",
+  "name": "Launch Program",
+  "args": [
+    "${workspaceRoot}/tests/StreamDisplay.test.ts"
+  ],
+  "runtimeArgs": [
+    "-r",
+    "ts-node/register"
+  ],
+  "cwd": "${workspaceRoot}",
+  "protocol": "inspector",
+  "internalConsoleOptions": "openOnSessionStart",
+  "env": {
+    "TS_NODE_IGNORE": "false"
+  }
+}
+```
+
 ## Building
 
-The library is build with Typescript and Typescript is included in `devDependencies`. To build the library locally you need just
+To build the library locally you need to
 
 ```bash
 npm install
