@@ -43,7 +43,7 @@ stream.stopCapture();
 ### Build a new instance of stream-display:
 
 ```javascript
-new StreamDisplay(callback, options = {})
+new StreamDisplay(callback, options = {});
 ```
 
 #### Arguments
@@ -52,11 +52,17 @@ new StreamDisplay(callback, options = {})
 - `options` (optional) — a configuration object, currently can have only one option:
   - `scanInterval: number (ms)` — interval between every callback invocation. Default value — `1000 `. **NB**: when your tab enters background — most browsers will cap the setInterval at `1000ms` maximum. Setting this value lower will not have any effect.
 
-### Start/stop capture
+### Start and stop capture
 
-`async startCapture()` — will trigger the screen capture modal and as soon as user accepts — start sending the `ImageData`. On error will return a rejected `Promise` with the error. A list of possible exceptions can be found on [MDN](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getDisplayMedia).
+```javascript
+await stream.startCapture();
+//...
+stream.stopCapture();
+```
 
-`stopCapture()` — ends the capture session.
+`startCapture()` will trigger the screen capture modal and as soon as user accepts — start sending the `ImageData`. On error will return a rejected `Promise` with the error. A list of possible exceptions can be found on [MDN](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getDisplayMedia).
+
+`stopCapture()` — ends the capture session
 
 ## Tests
 
