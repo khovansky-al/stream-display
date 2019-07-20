@@ -7,11 +7,6 @@ import StreamDisplay from '../src/StreamDisplay';
 const { DEFAULT_SCAN_INTERVAL_MS } = StreamDisplay;
 const { clock, getDisplayMediaFake } = setupEnvironment();
 
-tape('It is a function', t => {
-  t.plan(1);
-  t.equal(typeof StreamDisplay, 'function');
-});
-
 tape('It calls getDisplayMedia', function(t) {
   t.plan(1);
 
