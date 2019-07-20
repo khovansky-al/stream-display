@@ -1,4 +1,4 @@
-# stream-display
+# stream-display [![Build Status](https://travis-ci.org/khovansky-al/stream-display.svg?branch=master)](https://travis-ci.org/khovansky-al/stream-display) ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
 A tiny Typescript wrapper around Screen Capture API `getDisplayMedia` that sends screen video feed as `ImageData` to your desired callback.
 
