@@ -19,6 +19,6 @@ export default class StreamDisplay {
     private stream;
     private drawVideoToCanvas;
     private getImageData;
-    private validateScanInterval;
+    private static validateScanInterval;
 }
 export {};
