@@ -25,18 +25,24 @@ declare global {
 }
 
 type CallbackFn = (imageData: ImageData) => any
+type Configuration = {
+  scanInterval?: number;
+}
 
 export default class StreamDisplay {
+  public static readonly DEFAULT_SCAN_INTERVAL_MS = 1000;
+
   private video: HTMLVideoElement;
   private canvas: HTMLCanvasElement;
   private canvasContext: CanvasRenderingContext2D;
-  private rAFId: number = 0;
   private callback: CallbackFn;
+  private intervalId: number = 0;
+  private scanInterval: number = StreamDisplay.DEFAULT_SCAN_INTERVAL_MS;
 
   public streamHeight: number = 0;
   public streamWidth: number = 0;
 
-  constructor(callback: CallbackFn) {
+  constructor(callback: CallbackFn, options: Configuration = {}) {
     this.video = document.createElement('video');
     this.canvas = document.createElement('canvas');
 
@@ -47,6 +53,10 @@ export default class StreamDisplay {
 
     this.canvasContext = context;
     this.callback = callback;
+
+    const { scanInterval } = (options || {}) as Configuration;
+    this.scanInterval = scanInterval || this.scanInterval;
+    this.validateScanInterval(this.scanInterval);
   }
 
   startCapture = async () => {
@@ -55,11 +65,12 @@ export default class StreamDisplay {
     this.video.play();
 
     this.setupCanvas();
-    this.rAFId = requestAnimationFrame(this.stream);
+    this.stream();
+    this.intervalId = window.setInterval(this.stream, this.scanInterval);
   }
 
   stopCapture = () => {
-    cancelAnimationFrame(this.rAFId);
+    window.clearInterval(this.intervalId);
 
     const videoSource = this.video.srcObject as MediaStream;
     const tracks = videoSource.getTracks();
@@ -67,7 +78,7 @@ export default class StreamDisplay {
     tracks.forEach(track => track.stop());
   }
 
-  private setupCanvas() {
+  private setupCanvas = () => {
     const videoSource = this.video.srcObject as MediaStream;
     const videoTrack = videoSource.getVideoTracks()[0];
 
@@ -83,8 +94,6 @@ export default class StreamDisplay {
   private stream = () => {
     this.drawVideoToCanvas();
     this.callback(this.getImageData());
-
-    this.rAFId = requestAnimationFrame(this.stream);
   }
 
   private drawVideoToCanvas() {
@@ -95,5 +104,13 @@ export default class StreamDisplay {
   private getImageData(): ImageData {
     const { streamHeight, streamWidth, canvasContext } = this;
     return canvasContext.getImageData(0, 0, streamWidth, streamHeight);
+  }
+
+  private validateScanInterval(interval: number) {
+    if (interval >= 1000) return;
+    console.warn('\
+      [stream-display] Scan interval is set under 1000ms. \
+      Will be overridden by the browser to 1000ms when tab is in background'
+    );
   }
 }

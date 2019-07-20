@@ -1,6 +1,6 @@
 # stream-display
 
-A tiny Typescript wrapper around Screen Capture API that sends screen video feed as `ImageData` to your desired callback.
+A tiny Typescript wrapper around Screen Capture API `getDisplayMedia` that sends screen video feed as `ImageData` to your desired callback.
 
 ## Installation
 
@@ -21,9 +21,9 @@ import StreamDisplay from 'stream-display';
 You can take the `dist/stream-display.js` file or use a service like [unpkg](https://unpkg.com/stream-display@latest/dist/stream-display.js). Example:
 
 ```html
-<script src="https://unpkg.com/stream-display@0.0.3/dist/stream-display.js"></script>
+<script src="https://unpkg.com/stream-display@latest/dist/stream-display.js"></script>
 <script>
-	const stream = new StreamDisplay(...);
+  const stream = new StreamDisplay(...);
 </script>
 ```
 
@@ -50,7 +50,7 @@ new StreamDisplay(callback, options = {})
 
 - `callback: (image: ImageData) => any` - A function that takes one argument — image data from the screen capture feed
 - `options` (optional) — a configuration object, currently can have only one option:
-  - `refreshRate: number` — how many times per second ImageData will be sent to callback. Default value — `10 `. Be careful as increasing the number can impact performance
+  - `scanInterval: number (ms)` — interval between every callback invocation. Default value — `1000 `. NB: when your tab enters background — most browsers will cap the setInterval at `1000ms` maximum. Setting this value lower will not have any effect.
 
 ### Start/stop capture
 
