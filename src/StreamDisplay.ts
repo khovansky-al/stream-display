@@ -1,12 +1,12 @@
 
-import { FixedMediaDevices, FixedMediaStreamConstraints } from  './globals'
+import { FixedMediaDevices, FixedMediaStreamConstraints } from './globals';
 
 const DISPLAY_MEDIA_OPTIONS: FixedMediaStreamConstraints = {
   video: {
-    cursor: 'never'
+    cursor: 'never',
   },
-  audio: false
-}
+  audio: false,
+};
 
 type CallbackFn = (imageData: ImageData) => void
 type Configuration = {
@@ -14,17 +14,23 @@ type Configuration = {
 }
 
 export default class StreamDisplay {
-  public static readonly DEFAULT_SCAN_INTERVAL_MS = 1000;
+  static readonly DEFAULT_SCAN_INTERVAL_MS = 1000;
 
   private video: HTMLVideoElement;
+
   private canvas: HTMLCanvasElement;
+
   private canvasContext: CanvasRenderingContext2D;
+
   private callback: CallbackFn;
+
   private intervalId: number = 0;
+
   private scanInterval: number = StreamDisplay.DEFAULT_SCAN_INTERVAL_MS;
 
-  public streamHeight: number = 0;
-  public streamWidth: number = 0;
+  streamHeight: number = 0;
+
+  streamWidth: number = 0;
 
   constructor(callback: CallbackFn, options: Configuration = {}) {
     this.video = document.createElement('video');
@@ -32,7 +38,7 @@ export default class StreamDisplay {
 
     const context = this.canvas.getContext('2d');
     if (context == null) {
-      throw 'Cannot initialize canvas context'
+      throw new Error('Cannot initialize canvas context');
     }
 
     this.canvasContext = context;
@@ -40,7 +46,7 @@ export default class StreamDisplay {
 
     const { scanInterval } = (options || {}) as Configuration;
     this.scanInterval = scanInterval || this.scanInterval;
-    this.validateScanInterval(this.scanInterval);
+    StreamDisplay.validateScanInterval(this.scanInterval);
   }
 
   startCapture = async () => {
@@ -81,7 +87,9 @@ export default class StreamDisplay {
   }
 
   private drawVideoToCanvas() {
-    const { streamHeight, streamWidth, video, canvasContext } = this;
+    const {
+      streamHeight, streamWidth, video, canvasContext,
+    } = this;
     canvasContext.drawImage(video, 0, 0, streamWidth, streamHeight);
   }
 
@@ -90,11 +98,11 @@ export default class StreamDisplay {
     return canvasContext.getImageData(0, 0, streamWidth, streamHeight);
   }
 
-  private validateScanInterval(interval: number) {
+  private static validateScanInterval(interval: number) {
     if (interval >= 1000) return;
-    console.warn('\
+
+    throw new Error('\
       [stream-display] Scan interval is set under 1000ms. \
-      Will be overridden by the browser to 1000ms when tab is in background'
-    );
+      Will be overridden by the browser to 1000ms when tab is in background');
   }
 }

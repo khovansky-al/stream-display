@@ -1,5 +1,5 @@
-import tape = require('tape');
-import sinon = require('sinon');
+import tape from 'tape';
+import sinon from 'sinon';
 
 import setupEnvironment from './setupEnvironment';
 import StreamDisplay from '../src/StreamDisplay';
@@ -7,7 +7,7 @@ import StreamDisplay from '../src/StreamDisplay';
 const { DEFAULT_SCAN_INTERVAL_MS } = StreamDisplay;
 const { clock, getDisplayMediaFake } = setupEnvironment();
 
-tape('It calls getDisplayMedia', function(t) {
+tape('It calls getDisplayMedia', t => {
   t.plan(1);
 
   const stream = new StreamDisplay(() => {});
@@ -17,7 +17,7 @@ tape('It calls getDisplayMedia', function(t) {
   });
 });
 
-tape(`It runs once immediately at start`, t => {
+tape('It runs once immediately at start', t => {
   t.plan(1);
 
   const callback = sinon.fake();
@@ -58,12 +58,12 @@ tape('It honors a custom scanInterval', t => {
   });
 });
 
-tape(`It stops after stopCapture`, t => {
+tape('It stops after stopCapture', t => {
   t.plan(1);
 
   const callback = sinon.fake();
   const stream = new StreamDisplay(callback);
-  const timedInvocations = 4
+  const timedInvocations = 4;
 
   stream.startCapture().then(() => {
     clock.tick(DEFAULT_SCAN_INTERVAL_MS * timedInvocations);

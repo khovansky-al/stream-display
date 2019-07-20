@@ -8,4 +8,4 @@ interface FixedMediaStreamConstraints extends MediaStreamConstraints {
     video?: FixedMediaTrackConstraints | boolean;
     audio?: FixedMediaTrackConstraints | boolean;
 }
-export { FixedMediaDevices, FixedMediaStreamConstraints, FixedMediaTrackConstraints };
+export { FixedMediaDevices, FixedMediaStreamConstraints, FixedMediaTrackConstraints, };

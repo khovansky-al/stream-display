@@ -16,5 +16,5 @@ interface FixedMediaStreamConstraints extends MediaStreamConstraints {
 }
 
 export {
-  FixedMediaDevices, FixedMediaStreamConstraints, FixedMediaTrackConstraints
-}
+  FixedMediaDevices, FixedMediaStreamConstraints, FixedMediaTrackConstraints,
+};

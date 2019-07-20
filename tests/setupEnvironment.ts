@@ -1,5 +1,7 @@
-import sinon = require('sinon');
-import jsdom = require("jsdom");
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import sinon from 'sinon';
+import jsdom from 'jsdom';
 
 import { FixedMediaDevices } from '../src/globals';
 
@@ -10,16 +12,16 @@ type NavigatorFake = {
 }
 
 type InjectedFakes = {
-  navigator: NavigatorFake,
-  document: Document,
+  navigator: NavigatorFake;
+  document: Document;
   window: {
-    setInterval: sinon.SinonFakeTimers['setInterval'],
-    clearInterval: sinon.SinonFakeTimers['clearInterval'],
-  },
+    setInterval: sinon.SinonFakeTimers['setInterval'];
+    clearInterval: sinon.SinonFakeTimers['clearInterval'];
+  };
 }
 
 type ExtendedGlobal = NodeJS.Global & InjectedFakes;
-declare var global: ExtendedGlobal;
+declare let global: ExtendedGlobal;
 
 const setupEnvironment = () => {
   const contextFake = {
@@ -30,20 +32,20 @@ const setupEnvironment = () => {
   const videoTrackFake = {
     getSettings: () => ({}),
     stop: () => {},
-  }
+  };
 
   const srcObjectFake = {
     getVideoTracks: () => ([videoTrackFake]),
     getTracks: () => ([videoTrackFake]),
-  }
+  };
 
   const getDisplayMediaFake = sinon.fake.resolves(srcObjectFake);
 
   const navigatorFake = {
     mediaDevices: {
-      getDisplayMedia: getDisplayMediaFake
-    }
-  }
+      getDisplayMedia: getDisplayMediaFake,
+    },
+  };
 
   const { window } = new JSDOM('');
   window.HTMLCanvasElement.prototype.getContext = () => contextFake as any;
@@ -63,13 +65,13 @@ const setupEnvironment = () => {
       setInterval: clock.setInterval,
       clearInterval: clock.clearInterval,
     },
-  }
+  };
 
-  for (const key in injectedFakes) {
-    global[key as keyof ExtendedGlobal] = injectedFakes[key as keyof InjectedFakes];
-  }
+  Object.entries(injectedFakes).forEach(([key, fake]) => {
+    global[key as keyof ExtendedGlobal] = fake;
+  });
 
-  return { clock, getDisplayMediaFake }
-}
+  return { clock, getDisplayMediaFake };
+};
 
 export default setupEnvironment;
