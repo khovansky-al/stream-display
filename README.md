@@ -64,6 +64,12 @@ stream.stopCapture();
 
 `stopCapture()` — ends the capture session
 
+### Get current capture status
+
+```JavaScript
+stream.isCapturing // => boolean
+```
+
 ## Tests
 
 This library is using `tape` as a test runner. Tests themselves are also written in typescript and launched using `ts-node`.
