@@ -8,6 +8,8 @@ module.exports = {
     'indent': 'off',
     'no-undef': 'off',
     'no-multi-str': 'off',
+    'no-underscore-dangle': 'off',
+    'lines-between-class-members': 'off',
     'arrow-parens': [2, 'as-needed'],
     '@typescript-eslint/indent': ['error', 2],
     '@typescript-eslint/explicit-function-return-type': 'off',

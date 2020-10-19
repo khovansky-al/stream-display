@@ -17,16 +17,13 @@ export default class StreamDisplay {
   static readonly DEFAULT_SCAN_INTERVAL_MS = 1000;
 
   private video: HTMLVideoElement;
-
   private canvas: HTMLCanvasElement;
-
   private canvasContext: CanvasRenderingContext2D;
-
   private callback: CallbackFn;
-
   private intervalId: number = 0;
-
   private scanInterval: number = StreamDisplay.DEFAULT_SCAN_INTERVAL_MS;
+
+  private _isCapturing: boolean = false;
 
   streamHeight: number = 0;
 
@@ -57,6 +54,7 @@ export default class StreamDisplay {
     this.setupCanvas();
     this.stream();
     this.intervalId = window.setInterval(this.stream, this.scanInterval);
+    this._isCapturing = true;
   }
 
   stopCapture = () => {
@@ -66,6 +64,11 @@ export default class StreamDisplay {
     const tracks = videoSource.getTracks();
 
     tracks.forEach(track => track.stop());
+    this._isCapturing = false;
+  }
+
+  get isCapturing() {
+    return this._isCapturing;
   }
 
   private setupCanvas = () => {

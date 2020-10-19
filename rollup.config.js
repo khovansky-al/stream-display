@@ -1,4 +1,4 @@
-import { terser } from "rollup-plugin-terser";
+import { terser } from 'rollup-plugin-terser';
 import sourcemaps from 'rollup-plugin-sourcemaps';
 import copy from 'rollup-plugin-copy';
 import commonjs from 'rollup-plugin-commonjs';
@@ -9,7 +9,7 @@ export default {
     file: './dist/stream-display.js',
     name: 'StreamDisplay',
     format: 'umd',
-    sourcemap: true
+    sourcemap: true,
   },
   plugins: [
     commonjs(),
@@ -18,5 +18,5 @@ export default {
     copy({
       targets: [{ src: 'dist/cjs/*.d.ts', dest: 'dist/' }],
     }),
-  ]
-}
+  ],
+};

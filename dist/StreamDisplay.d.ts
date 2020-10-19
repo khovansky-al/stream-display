@@ -10,11 +10,13 @@ export default class StreamDisplay {
     private callback;
     private intervalId;
     private scanInterval;
+    private _isCapturing;
     streamHeight: number;
     streamWidth: number;
     constructor(callback: CallbackFn, options?: Configuration);
     startCapture: () => Promise<void>;
     stopCapture: () => void;
+    readonly isCapturing: boolean;
     private setupCanvas;
     private stream;
     private drawVideoToCanvas;

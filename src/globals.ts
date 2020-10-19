@@ -1,6 +1,6 @@
 /*
   MediaDevices.getDisplayMedia is currently typed incorrectly
-  https://github.com/microsoft/TypeScript/issues/31821
+  https://github.com/microsoft/TypeScript/issues/33232
 */
 interface FixedMediaDevices extends MediaDevices {
   getDisplayMedia(constraints: MediaStreamConstraints): Promise<MediaStream>;
