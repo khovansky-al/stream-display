@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-empty-function */
 
 import sinon from 'sinon';
 import jsdom from 'jsdom';
@@ -58,18 +59,12 @@ const setupEnvironment = () => {
   */
   const clock = sinon.useFakeTimers();
 
-  const injectedFakes: InjectedFakes = {
-    navigator: navigatorFake,
-    document: window.document,
-    window: {
-      setInterval: clock.setInterval,
-      clearInterval: clock.clearInterval,
-    },
+  global.navigator = navigatorFake;
+  global.document = window.document;
+  global.window = {
+    setInterval: clock.setInterval,
+    clearInterval: clock.clearInterval,
   };
-
-  Object.entries(injectedFakes).forEach(([key, fake]) => {
-    global[key as keyof ExtendedGlobal] = fake;
-  });
 
   return { clock, getDisplayMediaFake };
 };

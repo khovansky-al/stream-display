@@ -1,3 +1,5 @@
+/* eslint-disable quote-props */
+
 module.exports = {
   parser: '@typescript-eslint/parser',
   extends: [
@@ -14,15 +16,17 @@ module.exports = {
     '@typescript-eslint/indent': ['error', 2],
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/prefer-interface': 'off',
+    '@typescript-eslint/no-inferrable-types': 'off',
     '@typescript-eslint/explicit-member-accessibility': [2, {
       'accessibility': 'no-public',
     }],
+    'import/extensions': 'off',
   },
   settings: {
     'import/resolver': {
       'node': {
-        'extensions': ['.js', '.ts']
-      }
+        'extensions': ['.js', '.ts'],
+      },
     },
   },
 }

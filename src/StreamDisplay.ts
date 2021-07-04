@@ -1,4 +1,3 @@
-
 import { FixedMediaDevices, FixedMediaStreamConstraints } from './globals';
 
 const DISPLAY_MEDIA_OPTIONS: FixedMediaStreamConstraints = {

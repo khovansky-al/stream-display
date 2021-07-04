@@ -16,7 +16,7 @@ export default class StreamDisplay {
     constructor(callback: CallbackFn, options?: Configuration);
     startCapture: () => Promise<void>;
     stopCapture: () => void;
-    readonly isCapturing: boolean;
+    get isCapturing(): boolean;
     private setupCanvas;
     private stream;
     private drawVideoToCanvas;
