@@ -1,6 +1,6 @@
 {
   "name": "stream-display",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Wrapper around getDisplayMedia to capture screen as a sequence of ImageData objects",
   "main": "dist/stream-display.js",
   "types": "dist/StreamDisplay.d.ts",
